@@ -21,6 +21,8 @@ requirements:
         args = parser.parse_args()
 
         import yaml
+
+        import numpy as np
         from dataclasses import dataclass
         import warnings
 
