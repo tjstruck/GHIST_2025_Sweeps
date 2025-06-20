@@ -19,10 +19,23 @@ requirements:
         parser.add_argument("-g", "--goldstandard", required=True, help="Goldstandard for scoring")
 
         args = parser.parse_args()
-        score = 1 + 1
+
+        import yaml
+        import numpy as np
+        from scoring import ScoreSweeps
+
+        sweepscore = ScoreSweeps(args.submissionfile, args.goldstandard)
+
+        sweepscore.calculate_stats()
+        true_pos_prop = sweepscore.true_positive_score
+        false_neg_prop = sweepscore.false_negative_score
+        f1_score = sweepscore.f1
+
         prediction_file_status = "SCORED"
 
-        result = {'auc': score,
+        result = {'true_positive_score': true_pos_prop,
+                  'false_negative_score': false_neg_prop,
+                  'f1_score': f1_score,
                   'submission_status': prediction_file_status}
         with open(args.results, 'w') as o:
           o.write(json.dumps(result))
@@ -59,4 +72,4 @@ arguments:
 
 hints:
   DockerRequirement:
-    dockerPull: python:3.9.1-slim-buster
+    dockerPull: tjstruck/popsim-pilot-slim:1.32
