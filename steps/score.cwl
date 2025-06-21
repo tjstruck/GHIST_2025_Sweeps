@@ -142,15 +142,15 @@ requirements:
         sweepscore = ScoreSweeps(args.submissionfile, args.goldstandard)
 
         sweepscore.calculate_stats()
-        true_pos_prop = sweepscore.true_positive_score
-        false_neg_prop = sweepscore.false_negative_score
-        f1_score = sweepscore.f1
+        recall = sweepscore.true_positive_count / (sweepscore.true_positive_count + sweepscore.false_negative_count)
+        size = np.sum(sweepscore.interval_lengths) / 1e5
+        f1 = sweepscore.f1
 
         prediction_file_status = "SCORED"
 
-        result = {'true_positive_score': true_pos_prop,
-                  'false_negative_score': false_neg_prop,
-                  'f1_score': f1_score,
+        result = {'Recall': recall,
+                  'Size': size,
+                  'F1': f1,
                   'submission_status': prediction_file_status}
         with open(args.results, 'w') as o:
           o.write(json.dumps(result))
