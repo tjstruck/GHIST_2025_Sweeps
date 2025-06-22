@@ -58,7 +58,7 @@ steps:
   download_goldstandard:
     run: https://raw.githubusercontent.com/Sage-Bionetworks-Workflows/cwl-tool-synapseclient/v1.4/cwl/synapse-get-tool.cwl
     in:
-      # TODO: replace `valueFrom` with the Synapse ID to the challenge goldstandard
+      # TODO:replace `valueFrom` with the Synapse ID to the challenge goldstandard
       - id: synapseid
         valueFrom: "syn68476347"
       - id: synapse_config
